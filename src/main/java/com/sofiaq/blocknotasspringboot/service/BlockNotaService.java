@@ -2,6 +2,7 @@ package com.sofiaq.blocknotasspringboot.service;
 
 import com.sofiaq.blocknotasspringboot.model.BlockNota;
 import com.sofiaq.blocknotasspringboot.repository.BlockNotaRepository;
+import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,17 +13,33 @@ public class BlockNotaService {
     @Autowired
     private BlockNotaRepository bnRepository;
     
-    public List<BlockNota> getAll(){
-        return bnRepository.findAll();
+    public List<BlockNota> getAllByModified(){
+        return bnRepository.findByOrderByModifiedDesc();
+      
     }
     
     public BlockNota save(BlockNota b){
+      b.setModified(new Timestamp(System.currentTimeMillis()));
       return bnRepository.save(b);
     }
     
-    public void deleteBlock(int id){
-        BlockNota block = bnRepository.findById(id).get();
-        bnRepository.delete(block);
+    public BlockNota deleteNota(int id) throws Exception{
+        BlockNota nota = bnRepository.findById(id).orElseThrow( () -> new Exception("No existe nota con id" + id));
+        bnRepository.delete(nota);
+        return nota;
+    }
+    
+    public BlockNota getNoteById(int id) throws Exception{
+        BlockNota nota = bnRepository.findById(id).orElseThrow( () -> new Exception("No existe nota con id" + id));
+        return nota;
+    }  
+    
+    public BlockNota updateNota(int id, BlockNota bn) throws Exception{
+        BlockNota nota = bnRepository.findById(id).orElseThrow( () -> new Exception("No existe nota con id" + id));
+        nota.setTitle(bn.getTitle());
+        nota.setModified(new Timestamp(System.currentTimeMillis()));
+        nota.setDescription(bn.getDescription());
+        return bnRepository.save(nota);
     }
     
     
