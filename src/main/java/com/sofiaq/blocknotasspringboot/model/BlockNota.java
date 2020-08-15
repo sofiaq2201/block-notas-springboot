@@ -18,7 +18,8 @@ public class BlockNota {
     private String title;
     @Column(nullable = false)
     private String description;
-    private Timestamp last_modified;
+    @Column(name="last_modified")
+    private Timestamp modified;
 
     public BlockNota() {
     }
@@ -27,7 +28,7 @@ public class BlockNota {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.last_modified = last_modified;
+        this.modified = last_modified;
     }
 
         
@@ -55,12 +56,12 @@ public class BlockNota {
         this.description = description;
     }
 
-    public Timestamp getLast_modified() {
-        return last_modified;
+    public Timestamp getModified() {
+        return modified;
     }
 
-    public void setLast_modified(Timestamp last_modified) {
-        this.last_modified = last_modified;
+    public void setModified(Timestamp modified) {
+        this.modified = modified;
     }
     
 }
