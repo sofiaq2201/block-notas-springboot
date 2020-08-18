@@ -34,12 +34,9 @@ public class BlockNotaService {
         return nota;
     }  
     
-    public BlockNota updateNota(int id, BlockNota bn) throws Exception{
-        BlockNota nota = bnRepository.findById(id).orElseThrow( () -> new Exception("No existe nota con id" + id));
-        nota.setTitle(bn.getTitle());
-        nota.setModified(new Timestamp(System.currentTimeMillis()));
-        nota.setDescription(bn.getDescription());
-        return bnRepository.save(nota);
+    public BlockNota updateNota(BlockNota bn) throws Exception{
+        bn.setModified(new Timestamp(System.currentTimeMillis()));
+        return bnRepository.save(bn);
     }
     
     

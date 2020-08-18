@@ -39,9 +39,9 @@ public class BlockNotaController {
         return bnService.getNoteById(id);
     }
     
-    @PutMapping("/{id}")
-    public BlockNota updateNota(@PathVariable("id") int id, @RequestBody BlockNota bn) throws Exception{
-        return bnService.updateNota(id, bn);
+    @PutMapping("/")
+    public BlockNota updateNota(@RequestBody BlockNota bn) throws Exception{
+        return bnService.updateNota(bn);
     }
     
     @DeleteMapping("/{id}")
